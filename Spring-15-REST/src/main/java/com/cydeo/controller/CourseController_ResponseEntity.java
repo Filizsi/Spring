@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/course/api/v2")
+@RequestMapping("/courses/api/v2")
 public class CourseController_ResponseEntity {
 
     private final CourseService courseService;
@@ -27,22 +27,18 @@ public class CourseController_ResponseEntity {
                 .body(courseService.getCourses());
     }
 
+
     @GetMapping("{id}")
-    public ResponseEntity<CourseDTO> getCourseById(@PathVariable("id") Long id){
-        return ResponseEntity
-                .ok(courseService.getCourseById(id));
+    public ResponseEntity<CourseDTO> getCourseById(@PathVariable("id") Long courseId){
+        return ResponseEntity.ok(courseService.getCourseById(courseId));
     }
 
     @PostMapping
-    public ResponseEntity<CourseDTO> createCourse(@RequestBody CourseDTO dto){
+    public ResponseEntity<CourseDTO> createCourse(@RequestBody CourseDTO course){   //break till 8:30 pm
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .header("Operation","Create")
-                .body(courseService.createCourse(dto));
+                .body(courseService.createCourse(course));
     }
-
-
-
-
 
 }

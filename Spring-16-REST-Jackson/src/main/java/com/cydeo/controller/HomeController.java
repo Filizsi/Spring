@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-public class HomeController { private UserRepository userRepository;
+public class HomeController {
+
+    private UserRepository userRepository;
     private AccountRepository accountRepository;
 
     public HomeController(UserRepository userRepository, AccountRepository accountRepository) {
@@ -27,5 +29,4 @@ public class HomeController { private UserRepository userRepository;
     public List<Account> readAllAccounts(){
         return accountRepository.findAll();
     }
-
 }
