@@ -1,7 +1,10 @@
 package com.cydeo.controller;
 
+import com.cydeo.annotation.Loggable;
 import com.cydeo.dto.CourseDTO;
 import com.cydeo.service.CourseService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -9,6 +12,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/courses/api/v1")
 public class CourseController {
+
+//    Logger logger = LoggerFactory.getLogger(CourseController.class);
 
     private final CourseService courseService;
 
@@ -18,9 +23,14 @@ public class CourseController {
 
     @GetMapping
     public List<CourseDTO> getAllCourses() {
-        return courseService.getCourses();
+//        logger.info("Before-> Controller: {} - method: {} ","CourseController","getCourses()");
+        List<CourseDTO> list = courseService.getCourses();
+//        logger.info("After-> Controller: {} - method: {} - Output: {} ","CourseController","getCourses()",list.toString());
+
+        return list;
     }
 
+    @Loggable
     @GetMapping("/{id}")
     public CourseDTO getCourseById(@PathVariable("id") Long courseId) {
         return courseService.getCourseById(courseId);
@@ -31,6 +41,7 @@ public class CourseController {
         return courseService.getCoursesByCategory(category);
     }
 
+    @Loggable
     @PostMapping
     public CourseDTO createCourse(@RequestBody CourseDTO course) {
         return courseService.createCourse(course);
